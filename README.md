@@ -18,17 +18,17 @@ All the new plugins can be currently found from menubar under Filters/Extra.
 
 **Original photo**
 <p align="center">
-<img src="samples/original_photo.png" width="800px" />
+<img src="samples/original_photo.jpg" width="800px" />
 </p>
 
 **Strong black & white**
 <p align="center">
-<img src="samples/strong_black_and_white.png" width="800px" />
+<img src="samples/strong_black_and_white.jpg" width="800px" />
 </p>
 
 **Color boost**
 <p align="center">
-<img src="samples/boost_colors.png" width="800px" />
+<img src="samples/boost_colors.jpg" width="800px" />
 </p>
 
 
