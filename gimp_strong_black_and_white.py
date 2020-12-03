@@ -1,20 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
-from gimpfu import *
+from utils import *
 
 
 def strong_black_and_white(image, drawable):
-    pdb.gimp_image_undo_group_start(image)
+    start_image_undo(image)
 
-    pdb.gimp_desaturate_full(drawable, DESATURATE_LUMINOSITY)
-    layer = pdb.gimp_image_get_active_layer(image)
-    layer_copy = pdb.gimp_layer_new_from_drawable(layer, image)
-    pdb.gimp_image_insert_layer(image, layer_copy, None, 0)
-    pdb.gimp_layer_set_mode(layer_copy, OVERLAY_MODE)
-    layer_merged = pdb.gimp_image_merge_down(image, layer_copy, EXPAND_AS_NECESSARY)
+    current_active_layer = get_active_layer(image)
 
-    pdb.gimp_image_undo_group_end(image)
+    layer_desaturated = copy_and_insert_layer(current_active_layer, image)
+    rename_layer(layer_desaturated, "Desaturated")
+    desaturate_layer(layer_desaturated)
+
+    layer_saturated_overlay = copy_and_insert_layer(layer_desaturated, image)
+    rename_layer(layer_saturated_overlay, "Desaturated overlay")
+    set_overlay_mode(layer_saturated_overlay)
+
+    _, image = new_layer_from_visible(image)
+
+    end_image_undo(image)
 
 
 register("gimp_strong_black_and_white",
@@ -22,7 +27,7 @@ register("gimp_strong_black_and_white",
          "Desature layer, make copy and set overlay mode",
          "Ossi Myllymäki",
          "(©) 2020 Ossi Myllymäki",
-         "2020-12-02",
+         "2020-12-03",
          "<Image>/Filters/Extra/Strong black and white",
          'RGB*',
          [],
