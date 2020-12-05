@@ -4,7 +4,7 @@
 from utils import *
 
 
-def strong_black_and_white(image, drawable):
+def strong_black_and_white(image, drawable, opacity):
     start_image_undo(image)
 
     current_active_layer = get_active_layer(image)
@@ -16,6 +16,7 @@ def strong_black_and_white(image, drawable):
     layer_saturated_overlay = copy_and_insert_layer(layer_desaturated, image)
     rename_layer(layer_saturated_overlay, "Desaturated overlay")
     set_overlay_mode(layer_saturated_overlay)
+    set_layer_opacity(layer_saturated_overlay, opacity)
 
     _, image = new_layer_from_visible(image)
 
@@ -30,8 +31,10 @@ register("gimp_strong_black_and_white",
          "2020-12-03",
          "<Image>/Filters/Extra/Strong black and white",
          'RGB*',
+         [
+             (PF_SLIDER, "opacity", "Opacity", 100, (0, 100, 1)),
+         ],
          [],
-         '',
          strong_black_and_white)
 
 main()
